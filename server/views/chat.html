@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My first socket.io chat</title>
+  </head>
+
+  <body>
+
+    <input id="nknm"/>
+    <input id="sendMsg"/><button id="chatBtn">입력</button>
+    <button id="showRooms">방들</button>
+    <button id="joinRoom">입장</button>
+    <ul id="msg"></ul>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  	<script src="/socket.io/socket.io.js"></script>
+
+    <script>
+  		var socket = io();
+
+  		var chatBtn = document.querySelector('#chatBtn');
+
+  		chatBtn.addEventListener("click", function(event) {
+        var msg = new Object();
+
+        msg.nknm = $('#nknm').val();
+        msg.message = $('#sendMsg').val()
+
+        socket.emit('new message', msg);
+  		});
+
+      var showRooms = document.querySelector('#showRooms');
+
+      showRooms.addEventListener("click", function(event) {
+        socket.emit('show rooms');
+      });
+
+      var joinRoom = document.querySelector('#joinRoom');
+
+      joinRoom.addEventListener("click", function(event) {
+        socket.emit('join room', {
+          username : $('#nknm').val(),
+          room: 'Room 123'
+        });
+      });
+
+      socket.on('new message', function(msg) {
+        $('#msg').append($('<li>').text(msg.nknm + ": " + msg.message));
+		  });
+  	</script>
+
+  </body>
+</html>
