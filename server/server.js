@@ -26,31 +26,73 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-var numUsers = 0;
-var Rooms = [];
-
-function makeRoom () {
-
-
+function makeRoom (id, msg) {
+  console.log("make Room");
 
   return {
-
+    rid: id,
+    time: "tempTime",
+    start: "tmpStart",
+    finish: "tmpFinish",
+    numUsers: 1
   }
-
 }
 
-io.on('connection', (socket) => {
+function getRooms () {
+  var ret = [];
+
+  for(var i = 0; i < Rooms.length; i++) {
+    ret.push(Rooms[i]);
+  }
+
+  return ret;
+}
+
+var Rooms = [];
+var roomID = 0;
+io.on('connection', (socket) => { //연결
   var addedUser = false;
-  var userInfo = { };
+  var rid;
+  var userInfo = {
+    y: 0,
+    x: 0
+  };
   //console.log(socket);
   console.log("user connected");
 
-  socket.on('new message', (msg) => {
-    console.log(msg);
-    io.emit('new message', {
-      nknm: msg.nknm,
-      message: msg.message
-    });
+  socket.on('new message', (msg) => { //chat
+    console.log("new message : ", msg);
+
+    var target = msg.room;
+    if(msg.room == "ALL") {
+      io.emit('new message', {
+        nknm: '[' + target + ']' + msg.nknm,
+        message: msg.message
+      });
+    } else {
+      io.to(msg.room).emit('new message', {
+        nknm: '[' + target + ']' + msg.nknm,
+        message: msg.message
+      });
+    }
+  });
+
+  socket.on('show rooms', () => { //show room list
+    // let rooms = Object.keys(socket.rooms);
+    // console.log(io.sockets.adapter.rooms);//방 목록
+    // rooms.shift();
+    console.log(Rooms.length);
+    if(Rooms.length == 0) {
+      socket.emit('show room', {
+        nknm: "[System]",
+        message: "생성된 방이 없습니다."
+      });
+    } else {
+      socket.emit('show room', {
+        nknm: "[System]",
+        rooms: getRooms()
+      });
+    }
   });
 
   // socket.join('room 237', () => {
@@ -58,45 +100,58 @@ io.on('connection', (socket) => {
   //   console.log(rooms); // [ <socket.id>, 'room 237' ]
   // });
 
-  socket.on('join room', (msg) => {
+  socket.on('make room', (msg) => {
     console.log(msg);
+
     if(addedUser) {
       console.log("ADDED");
-    }
-    else {
-      socket.join(msg.room, () => {
+    } else {
+      let id = ++roomID;
+      Rooms.push(makeRoom(id, msg));
+
+      socket.join(id, () => {
         addedUser = true;
-        console.log(msg);
-        io.to(msg.room).emit('new message', {
-          nknm: 'system',
-          message: msg.username + '님이 입장하였습니다.'
+
+        socket.emit('room id', {
+          id: id
+        });
+
+        io.to(id).emit('new message', {
+          nknm: "[System]",
+          message: msg.nknm + '님이 입장하였습니다.'
         });
       });
     }
   });
 
-  socket.on('show rooms', () => {
-    let rooms = Object.keys(socket.rooms);
-    console.log(io.sockets.adapter.rooms);//방 목록
-    console.log(rooms);
-    rooms.shift();
-    console.log(rooms);
-    socket.emit('new message', {
-      nknm: "system",
-      message: rooms
-    });
+  socket.on('join room', (msg) => {
+    console.log(msg);
+    if(addedUser) {
+      console.log("ADDED");
+    } else {
+      socket.join(msg.room, () => {
+        addedUser = true;
+        let idx = msg.room * 1;
+        Rooms[idx - 1].numUsers++;
+        io.to(msg.room).emit('new message', {
+          nknm: "[System]",
+          message: msg.nknm + '님이 입장하였습니다.'
+        });
+      });
+    }
   });
 
-  socket.on('add user', (username) => {
-    if(addedUser) return;
-
-    socket.username = username;
-    ++numUsers;
-    addedUser = true;
-
-    socket.emit('login', {
-      numUsers: numUsers
-    });
+  socket.on('leave room', (msg) => {
+    if(addedUser) {
+      socket.leave(msg.room);
+      addedUser = false;
+      let idx = msg.room * 1;
+      Rooms[idx - 1].numUsers--;
+      io.to(msg.room).emit('new message', {
+        nknm: "[System]",
+        message: msg.nknm + '님이 나가셨습니다.'
+      });
+    }
   });
 
   socket.on('disconnect', () => {
