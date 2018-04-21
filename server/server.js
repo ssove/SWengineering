@@ -50,6 +50,7 @@ function getRooms () {
 
 var Rooms = [];
 var roomID = 0;
+
 io.on('connection', (socket) => { //연결
   var addedUser = false;
   var rid;
