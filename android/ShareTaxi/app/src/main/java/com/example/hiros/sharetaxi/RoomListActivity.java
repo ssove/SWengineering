@@ -16,11 +16,8 @@ public class RoomListActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this.getIntent());
         Bundle bundle = intent.getExtras();
-        String nknm = bundle.getString("nknm");
-        String start = bundle.getString("start");
-        String finish = bundle.getString("finish");
-        String time = bundle.getString("time");
+        String rooms = bundle.getString("rooms");
 
-        Log.d(TAG, nknm + " " + start + " " + finish + " " + time);
+        Log.d(TAG, rooms);
     }
 }
