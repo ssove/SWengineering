@@ -31,9 +31,12 @@ function makeRoom (id, msg) {
 
   return {
     rid: id,
-    time: "tempTime",
-    start: "tmpStart",
-    finish: "tmpFinish",
+    master: msg.nknm,
+    y: msg.y,
+    x: msg.x,
+    time: msg.time,
+    start: msg.start,
+    finish: msg.finish,
     numUsers: 1
   }
 }
