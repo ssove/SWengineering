@@ -39,7 +39,11 @@
 >>> Return Rooms[]
 >>> ```
 >>>  msg {
->>>
+>>>     nknm : string
+>>>     position : { } // Expected
+>>>     start : string
+>>>     finish : string
+>>>     time : string
 >>>  }
 >>> ```
 >>
@@ -49,6 +53,9 @@
 >>>  msg {
 >>>     nknm : string
 >>>     position : { } // Expected
+>>>     start : string
+>>>     finish : string
+>>>     time : string
 >>>  }
 >>> ```
 >>
@@ -96,3 +103,7 @@
 >>>     rid : string
 >>>  }
 >>> ```
+
+ - - -
+
+Last Modified : 2018-04-25

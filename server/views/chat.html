@@ -70,7 +70,7 @@
         $('#msg').append($('<li>').text(msg.nknm + ": " + msg.message));
 		  });
 
-      socket.on('show room', function(msg) {
+      socket.on('show rooms', function(msg) {
         console.log(msg);
         for(let room of msg.rooms) {
           $('#roomlist').append($('<p>')).html(room.rid);

@@ -31,9 +31,12 @@ function makeRoom (id, msg) {
 
   return {
     rid: id,
-    time: "tempTime",
-    start: "tmpStart",
-    finish: "tmpFinish",
+    master: msg.nknm,
+    y: msg.y,
+    x: msg.x,
+    time: msg.time,
+    start: msg.start,
+    finish: msg.finish,
     numUsers: 1
   }
 }
@@ -50,6 +53,7 @@ function getRooms () {
 
 var Rooms = [];
 var roomID = 0;
+
 io.on('connection', (socket) => { //연결
   var addedUser = false;
   var rid;
@@ -66,12 +70,12 @@ io.on('connection', (socket) => { //연결
     var target = msg.room;
     if(msg.room == "ALL") {
       io.emit('new message', {
-        nknm: '[' + target + ']' + msg.nknm,
+        nknm: msg.nknm,
         message: msg.message
       });
     } else {
       io.to(msg.room).emit('new message', {
-        nknm: '[' + target + ']' + msg.nknm,
+        nknm: msg.nknm,
         message: msg.message
       });
     }
@@ -83,13 +87,13 @@ io.on('connection', (socket) => { //연결
     // rooms.shift();
     console.log(Rooms.length);
     if(Rooms.length == 0) {
-      socket.emit('show room', {
-        nknm: "[System]",
+      socket.emit('show rooms', {
+        nknm: "system",
         message: "생성된 방이 없습니다."
       });
     } else {
-      socket.emit('show room', {
-        nknm: "[System]",
+      socket.emit('show rooms', {
+        nknm: "system",
         rooms: getRooms()
       });
     }
@@ -117,7 +121,7 @@ io.on('connection', (socket) => { //연결
         });
 
         io.to(id).emit('new message', {
-          nknm: "[System]",
+          nknm: "system",
           message: msg.nknm + '님이 입장하였습니다.'
         });
       });
@@ -134,7 +138,7 @@ io.on('connection', (socket) => { //연결
         let idx = msg.room * 1;
         Rooms[idx - 1].numUsers++;
         io.to(msg.room).emit('new message', {
-          nknm: "[System]",
+          nknm: "system",
           message: msg.nknm + '님이 입장하였습니다.'
         });
       });
@@ -148,7 +152,7 @@ io.on('connection', (socket) => { //연결
       let idx = msg.room * 1;
       Rooms[idx - 1].numUsers--;
       io.to(msg.room).emit('new message', {
-        nknm: "[System]",
+        nknm: "system",
         message: msg.nknm + '님이 나가셨습니다.'
       });
     }
