@@ -70,12 +70,12 @@ io.on('connection', (socket) => { //연결
     var target = msg.room;
     if(msg.room == "ALL") {
       io.emit('new message', {
-        nknm: '[' + target + ']' + msg.nknm,
+        nknm: msg.nknm,
         message: msg.message
       });
     } else {
       io.to(msg.room).emit('new message', {
-        nknm: '[' + target + ']' + msg.nknm,
+        nknm: msg.nknm,
         message: msg.message
       });
     }
@@ -88,12 +88,12 @@ io.on('connection', (socket) => { //연결
     console.log(Rooms.length);
     if(Rooms.length == 0) {
       socket.emit('show rooms', {
-        nknm: "[System]",
+        nknm: "system",
         message: "생성된 방이 없습니다."
       });
     } else {
       socket.emit('show rooms', {
-        nknm: "[System]",
+        nknm: "system",
         rooms: getRooms()
       });
     }
@@ -121,7 +121,7 @@ io.on('connection', (socket) => { //연결
         });
 
         io.to(id).emit('new message', {
-          nknm: "[System]",
+          nknm: "system",
           message: msg.nknm + '님이 입장하였습니다.'
         });
       });
@@ -138,7 +138,7 @@ io.on('connection', (socket) => { //연결
         let idx = msg.room * 1;
         Rooms[idx - 1].numUsers++;
         io.to(msg.room).emit('new message', {
-          nknm: "[System]",
+          nknm: "system",
           message: msg.nknm + '님이 입장하였습니다.'
         });
       });
@@ -152,7 +152,7 @@ io.on('connection', (socket) => { //연결
       let idx = msg.room * 1;
       Rooms[idx - 1].numUsers--;
       io.to(msg.room).emit('new message', {
-        nknm: "[System]",
+        nknm: "system",
         message: msg.nknm + '님이 나가셨습니다.'
       });
     }
