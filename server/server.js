@@ -50,6 +50,7 @@ function getRooms () {
 
 var Rooms = [];
 var roomID = 0;
+
 io.on('connection', (socket) => { //연결
   var addedUser = false;
   var rid;
@@ -83,12 +84,12 @@ io.on('connection', (socket) => { //연결
     // rooms.shift();
     console.log(Rooms.length);
     if(Rooms.length == 0) {
-      socket.emit('show room', {
+      socket.emit('show rooms', {
         nknm: "[System]",
         message: "생성된 방이 없습니다."
       });
     } else {
-      socket.emit('show room', {
+      socket.emit('show rooms', {
         nknm: "[System]",
         rooms: getRooms()
       });
