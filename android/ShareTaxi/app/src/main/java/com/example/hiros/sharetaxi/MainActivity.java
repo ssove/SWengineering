@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
 
             Intent intent = new Intent(MainActivity.this, RoomListActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("rooms", rcvData.toString());
+            bundle.putString("rooms", rcvData.optString("rooms"));
             intent.putExtras(bundle);
             startActivity(intent);
         }
