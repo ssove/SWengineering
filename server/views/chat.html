@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My first socket.io chat</title>
+  </head>
+
+  <body>
+
+    <input id="nknm"/>
+    <input id="sendMsg"/><button id="chatBtn">입력</button>
+    <button id="showRooms">방들</button>
+    <input id="roomid">
+    <button id="makeRoom">만들기</button>
+    <button id="joinRoom">입장</button>
+    <button id="leaveRoom">나가기</button>
+    <ul id="msg"></ul>
+    <div id="roomlist">
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  	<script src="/socket.io/socket.io.js"></script>
+
+    <script>
+  		var socket = io();
+      var rid = "ALL";
+  		var chatBtn = document.querySelector('#chatBtn');
+
+  		chatBtn.addEventListener("click", function(event) {
+        socket.emit('new message', {
+          nknm: $('#nknm').val(),
+          message: $('#sendMsg').val(),
+          room: rid
+        });
+  		});
+
+      var showRooms = document.querySelector('#showRooms');
+
+      showRooms.addEventListener("click", function(event) {
+        socket.emit('show rooms');
+      });
+
+      var joinRoom = document.querySelector('#joinRoom');
+
+      joinRoom.addEventListener("click", function(event) {
+        socket.emit('join room', {
+          nknm: $('#nknm').val(),
+          room: $('#roomid').val()
+        });
+        rid = $('#roomid').val();
+      });
+
+      var makeRoom = document.querySelector('#makeRoom');
+      makeRoom.addEventListener("click", (event) => {
+        socket.emit('make room', {
+          nknm: $('#nknm').val(),
+          room: $('#roomid').val()
+        });
+        rid = $('#roomid').val();
+      });
+
+      var leaveRoom = document.querySelector('#leaveRoom');
+      leaveRoom.addEventListener("click", (event) => {
+        socket.emit('leave room');
+        rid = "ALL";
+      });
+
+      socket.on('new message', function(msg) {
+        console.log(msg);
+        $('#msg').append($('<li>').text(msg.nknm + ": " + msg.message));
+		  });
+
+      socket.on('show rooms', function(msg) {
+        console.log(msg);
+        for(let room of msg.rooms) {
+          $('#roomlist').append($('<p>')).html(room.rid);
+        }
+      });
+
+      socket.on('room id', (msg) => {
+        rid = msg.id;
+      });
+  	</script>
+
+  </body>
+</html>
