@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.hiros.sharetaxi"
         minSdkVersion 21
@@ -20,6 +20,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    compile 'com.google.android.gms:play-services-location:15.0.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -31,4 +33,5 @@ dependencies {
     }
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    implementation files('libs/libDaumMapAndroid.jar')
 }

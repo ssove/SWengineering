@@ -25,7 +25,8 @@
     <EditText
         android:id="@+id/edit_start"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +36,8 @@
     <EditText
         android:id="@+id/edit_finish"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
