@@ -15,10 +15,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private String locationType;
-    private String savedNickName;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +37,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         //// Add a marker in Sydney and move the camera
         // 기존 튜토리얼 코드 3줄
         //LatLng sydney = new LatLng(-34, 151);
@@ -130,17 +124,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Main Activity에 마커에 등록돼있는 title string을 전달
                 Intent intent = getIntent();
                 intent.putExtra("placeName", marker.getTitle());
-                //intent.putExtra("locationType", locationType);
-                //intent.putExtra("nickName", savedNickName);
-                //startActivity(intent);
                 setResult(RESULT_OK, intent);
                 finish();
                 return false;
             }
         });
-
-        //Intent intent = getIntent();
-        //savedNickName = intent.getStringExtra("nickName");
     }
-
 }
