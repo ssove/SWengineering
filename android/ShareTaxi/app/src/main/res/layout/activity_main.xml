@@ -5,48 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.hiros.sharetaxi.MainActivity"
+    android:background="#FFFFF3"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:text="닉네임"/>
 
     <EditText
         android:id="@+id/edit_nknm"
+        android:textColor="#18c4c7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:text="출발지"/>
 
     <EditText
         android:id="@+id/edit_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:text="도착지"/>
 
     <EditText
         android:id="@+id/edit_finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:text="시간"/>
 
     <EditText
         android:id="@+id/edit_time"
         android:layout_width="match_parent"
+        android:textColor="#18c4c7"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -73,6 +82,7 @@
         android:id="@+id/btn_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#18c4c7"
         android:text="검색"/>
 
 </LinearLayout>
