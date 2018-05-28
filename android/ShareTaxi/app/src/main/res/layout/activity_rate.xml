@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/user1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="user1"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+
+    <RadioGroup
+        android:id="@+id/radio_grp1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn1-1"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="좋아요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn1-2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="싫어요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn1-3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="그저그래요" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/user2View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="user2"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_grp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn2-1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="좋아요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn2-2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="싫어요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn2-3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="그저그래요" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/user3View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="user3"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_grp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn3-1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="좋아요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn3-2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="싫어요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn3-3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="그저그래요" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/user4View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="user4"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_grp4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn4-1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="좋아요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn4-2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="싫어요" />
+
+        <RadioButton
+            android:id="@+id/radio_btn4-3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="그저그래요" />
+    </RadioGroup>
+
+</LinearLayout>
