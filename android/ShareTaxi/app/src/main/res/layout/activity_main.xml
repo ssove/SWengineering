@@ -9,80 +9,118 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="34dp" />
+
+    <!-- 32*32 크기의 이미지-->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#18c4c7"
+
+        android:drawableLeft="@drawable/person"
+        android:drawablePadding="10dp"
+        android:textSize="12pt"
         android:text="닉네임"/>
 
     <EditText
         android:id="@+id/edit_nknm"
-        android:textColor="#18c4c7"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#18c4c7"
+        android:drawableLeft="@drawable/start_location"
+        android:drawablePadding="10dp"
+        android:textSize="12pt"
         android:text="출발지"/>
 
     <EditText
         android:id="@+id/edit_start"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="#18c4c7"
         android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#18c4c7"
+        android:drawableLeft="@drawable/end_location"
+        android:drawablePadding="10dp"
+        android:textSize="12pt"
         android:text="도착지"/>
 
     <EditText
         android:id="@+id/edit_finish"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="#18c4c7"
         android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#18c4c7"
+        android:drawableLeft="@drawable/time"
+        android:drawablePadding="10dp"
+        android:textSize="12pt"
         android:text="시간"/>
 
     <EditText
         android:id="@+id/edit_time"
-        android:layout_width="match_parent"
-        android:textColor="#18c4c7"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="y"/>
+        android:layout_height="0dp"
+        android:text="y"
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/edit_y"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:visibility="invisible" />
+
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="x"/>
+        android:layout_height="0dp"
+        android:text="x"
+        android:visibility="invisible" />
 
     <EditText
         android:id="@+id/edit_x"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="rate"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="157dp" />
+    <!-- 맨 아래에 위치한다-->
     <Button
         android:id="@+id/btn_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#18c4c7"
-        android:text="검색"/>
+        android:background="@drawable/button1"
+        android:gravity="center"
+        android:text="검색하기"
+        android:textSize="12pt" />
 
 </LinearLayout>

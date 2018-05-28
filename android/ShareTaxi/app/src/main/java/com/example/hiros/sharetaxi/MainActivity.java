@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -81,6 +82,24 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
+
+
+
+
+/*
+        //test
+        Button  test = (Button)findViewById(R.id.btn_test);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),RateActivity.class);
+                startActivity(intent);
+            }
+        });
+
+*/
+
+
 
         time = (EditText)findViewById(R.id.edit_time);
         y = (EditText)findViewById(R.id.edit_y);
