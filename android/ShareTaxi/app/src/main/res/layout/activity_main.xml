@@ -75,7 +75,8 @@
         android:id="@+id/edit_time"
         android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"/>
 
     <TextView
         android:layout_width="wrap_content"

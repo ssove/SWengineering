@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 public class Splashscreen extends Activity{
     public void onAttachedToWindow(){
-        super.onAttachedToWindow();;
+        super.onAttachedToWindow();
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
@@ -27,13 +27,13 @@ public class Splashscreen extends Activity{
         Animation anim = AnimationUtils.loadAnimation(this,R.anim.alpha);
         anim.reset();
         LinearLayout I = (LinearLayout) findViewById(R.id.lin_lay);
-        I.clearAnimation();;
+        I.clearAnimation();
         I.startAnimation(anim);
 
         anim = AnimationUtils.loadAnimation(this,R.anim.translate);
         anim.reset();
         ImageView iv = (ImageView) findViewById(R.id.splash);
-        iv.clearAnimation();;
+        iv.clearAnimation();
         iv.startAnimation(anim);
 
         splashTread = new Thread(){
@@ -45,8 +45,8 @@ public class Splashscreen extends Activity{
                         sleep(20);
                         waited += 100;
                     }
-                    //로그인이 들어가면 로그인 화면으로 바꿀것
-                    Intent intent = new Intent(Splashscreen.this,MainActivity.class);
+
+                    Intent intent = new Intent(Splashscreen.this, /*MainActivity.class*/LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     Splashscreen.this.finish();
