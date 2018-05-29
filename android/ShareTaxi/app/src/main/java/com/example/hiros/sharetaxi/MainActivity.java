@@ -18,7 +18,8 @@ import org.json.JSONObject;
 
 import io.socket.emitter.Emitter;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity
+                            implements OnTimePickerSetListener {
 
     EditText nknm;
     EditText start;
@@ -100,8 +101,19 @@ public class MainActivity extends AppCompatActivity{
 */
 
 
-
         time = (EditText)findViewById(R.id.edit_time);
+        time.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int id = v.getId();
+                switch(id) {
+                    case R.id.edit_time:
+                        TimePickerFragment mTimePickerFragment = new TimePickerFragment();
+                        mTimePickerFragment.show(getSupportFragmentManager(), "temp");
+                        break;
+                }
+            }
+        });
+
         y = (EditText)findViewById(R.id.edit_y);
         x = (EditText)findViewById(R.id.edit_x);
 
@@ -151,6 +163,15 @@ public class MainActivity extends AppCompatActivity{
                 finish.setText(name);
             }
         }
+    }
+
+    @Override
+    public void onTimePickerSet(int hour, int min)
+    {
+        if(hour <= 12)
+            time.setText(hour + "시 " + min + "분 AM");
+        else
+            time.setText(hour-12 + "시 " + min + "분 PM");
     }
 
     /**
