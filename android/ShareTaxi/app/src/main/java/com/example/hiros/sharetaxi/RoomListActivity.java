@@ -29,6 +29,21 @@ public class RoomListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        //test data
+/*
+        RoomInfo room = new RoomInfo("rid","곽의 방", "경북대학교", "대구역", "17:00", "1/4");
+        mAdapter.add(room);
+        RoomInfo room1 = new RoomInfo("rid","리의 방", "경북대학교", "내 집", "17:00", "1/4");
+        mAdapter.add(room1);
+        RoomInfo room2 = new RoomInfo("rid","차의 방", "공대9호관", "협동관", "17:00", "1/4");
+        mAdapter.add(room2);
+        RoomInfo room3 = new RoomInfo("rid","황의 방", "경북대학교", "대구역", "17:00", "1/4");
+        mAdapter.add(room3);
+        RoomInfo room4 = new RoomInfo("rid","우의 방", "경북대학교", "대구역", "17:00", "1/4");
+        mAdapter.add(room4);
+        RoomInfo room6 = new RoomInfo("rid","tester", "경북대학교", "대구역", "17:00", "1/4");
+        mAdapter.add(room6);
+        */
 
         Intent intent = new Intent(this.getIntent());
         Bundle bundle = intent.getExtras();
@@ -54,5 +69,7 @@ public class RoomListActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
+
 }

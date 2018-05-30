@@ -83,10 +83,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-
-
-
 /*
         //test
         Button  test = (Button)findViewById(R.id.btn_test);
@@ -99,8 +95,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 */
-
-
         time = (EditText)findViewById(R.id.edit_time);
         time.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -120,6 +114,11 @@ public class MainActivity extends AppCompatActivity
         search = (Button)findViewById(R.id.btn_search);
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                /*
+                // test code for RoomListActivity
+                Intent intent = new Intent(MainActivity.this, RoomListActivity.class);
+                startActivity(intent);
+                */
                 int id = v.getId();
                 switch(id) {
                     case R.id.btn_search:
@@ -140,6 +139,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
             }
+
         });
     }
 

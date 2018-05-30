@@ -5,7 +5,7 @@ package com.example.hiros.sharetaxi;
  */
 
 public class Constants {
-    public static final String SOCKET_URL = "http://27.35.110.82:3000";
+    public static final String SOCKET_URL = "http://127.0.0.1:3000";
 
     public static final String SHOW_ROOM = "show rooms";
 }
