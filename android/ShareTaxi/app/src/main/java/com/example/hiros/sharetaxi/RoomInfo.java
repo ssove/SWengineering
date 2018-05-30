@@ -18,11 +18,11 @@ public class RoomInfo {
 
     public RoomInfo(String rid, String master, String start, String finish, String time, String numUsers) {
         this.rid = rid;
-        this.master = master;
-        this.start = start;
-        this.finish = finish;
-        this.time = time;
-        this.numUsers = numUsers;
+        this.master = "방장: "+ master;
+        this.start = "출발지: "+  start;
+        this.finish = "도착지: "+ finish;
+        this.time = "출발 시간: " + time;
+        this.numUsers = "방 인원" +  numUsers;
     }
 
     public void setRid(String rid) {
@@ -30,23 +30,23 @@ public class RoomInfo {
     }
 
     public void setMaster(String master) {
-        this.master = master;
+        this.master = "방장: "+ master;
     }
 
     public void setStart(String start) {
-        this.start = start;
+        this.start = "출발지: "+  start;
     }
 
     public void setFinish(String finish) {
-        this.finish = finish;
+        this.finish = "도착지: "+ finish;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.time = "출발 시간: " + time;
     }
 
     public void setNumUsers(String numUsers) {
-        this.numUsers = numUsers;
+        this.numUsers = "방 인원: " +  numUsers;
     }
 
     public String getRid() {

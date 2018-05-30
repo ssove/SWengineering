@@ -32,7 +32,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewHolder> implements
 
     @Override
     public RoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_room, null);
         RoomViewHolder holder = new RoomViewHolder(v);
         holder.setOnRoomClickListener(this);
         return holder;
