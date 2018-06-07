@@ -128,8 +128,10 @@ public class MainActivity extends AppCompatActivity
                             sendData.put("start", "START");
                             sendData.put("finish", "FINISH");
                             sendData.put("time", "TIME");
-                            sendData.put("y", Double.valueOf(y.getText().toString()));
-                            sendData.put("x", Double.valueOf(x.getText().toString()));
+//                            sendData.put("y", Double.valueOf(y.getText().toString()));
+//                            sendData.put("x", Double.valueOf(x.getText().toString()));
+                            sendData.put("y", 0);
+                            sendData.put("x", 0);
                             mSocket.emit("show rooms", sendData);
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -56,6 +56,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewHolder> implements
 
     @Override
     public void onRoomClickListener(int position) {
+        //여기 클릭하면 채팅방 넘어가게 수정 ㅇㅋ ?
+
         Toast.makeText(mContext, items.get(position).toString(), Toast.LENGTH_SHORT).show();
     }
 }
