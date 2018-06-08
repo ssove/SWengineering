@@ -30,7 +30,7 @@
         socket.emit('new message', {
           nknm: $('#nknm').val(),
           message: $('#sendMsg').val(),
-          room: rid
+          rid: rid
         });
   		});
 
@@ -45,7 +45,7 @@
       joinRoom.addEventListener("click", function(event) {
         socket.emit('join room', {
           nknm: $('#nknm').val(),
-          room: $('#roomid').val()
+          rid: $('#roomid').val()
         });
         rid = $('#roomid').val();
       });
@@ -54,7 +54,7 @@
       makeRoom.addEventListener("click", (event) => {
         socket.emit('make room', {
           nknm: $('#nknm').val(),
-          room: $('#roomid').val()
+          rid: $('#roomid').val()
         });
         rid = $('#roomid').val();
       });

@@ -67,14 +67,14 @@ io.on('connection', (socket) => { //연결
   socket.on('new message', (msg) => { //chat
     console.log("new message : ", msg);
 
-    var target = msg.room;
-    if(msg.room == "ALL") {
+    var target = msg.rid;
+    if(msg.rid == "ALL") {
       io.emit('new message', {
         nknm: msg.nknm,
         message: msg.message
       });
     } else {
-      io.to(msg.room).emit('new message', {
+      io.to(msg.rid).emit('new message', {
         nknm: msg.nknm,
         message: msg.message
       });
@@ -122,7 +122,7 @@ io.on('connection', (socket) => { //연결
 
         io.to(id).emit('new message', {
           nknm: "system",
-          message: msg.nknm + '님이 입장하였습니다.'
+          action: "entered"
         });
       });
     }
@@ -133,13 +133,13 @@ io.on('connection', (socket) => { //연결
     if(addedUser) {
       console.log("ADDED");
     } else {
-      socket.join(msg.room, () => {
+      socket.join(msg.rid, () => {
         addedUser = true;
-        let idx = msg.room * 1;
+        let idx = msg.rid * 1;
         Rooms[idx - 1].numUsers++;
-        io.to(msg.room).emit('new message', {
+        io.to(msg.rid).emit('new message', {
           nknm: "system",
-          message: msg.nknm + '님이 입장하였습니다.'
+          action: "entered"
         });
       });
     }
@@ -147,13 +147,13 @@ io.on('connection', (socket) => { //연결
 
   socket.on('leave room', (msg) => {
     if(addedUser) {
-      socket.leave(msg.room);
+      socket.leave(msg.rid);
       addedUser = false;
-      let idx = msg.room * 1;
+      let idx = msg.rid * 1;
       Rooms[idx - 1].numUsers--;
-      io.to(msg.room).emit('new message', {
+      io.to(msg.rid).emit('new message', {
         nknm: "system",
-        message: msg.nknm + '님이 나가셨습니다.'
+        action: "leaved"
       });
     }
   });
