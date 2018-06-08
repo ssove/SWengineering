@@ -1,6 +1,8 @@
 package com.example.hiros.sharetaxi;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +58,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewHolder> implements
 
     @Override
     public void onRoomClickListener(int position) {
-        //여기 클릭하면 채팅방 넘어가게 수정 ㅇㅋ ?
+        Intent intent = new Intent(mContext, ChatMessageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("rid", items.get(position).getRid());
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
 
         Toast.makeText(mContext, items.get(position).toString(), Toast.LENGTH_SHORT).show();
     }

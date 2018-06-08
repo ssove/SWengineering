@@ -18,8 +18,7 @@ import org.json.JSONObject;
 
 import io.socket.emitter.Emitter;
 
-public class MainActivity extends AppCompatActivity
-                            implements OnTimePickerSetListener {
+public class MainActivity extends AppCompatActivity implements OnTimePickerSetListener {
 
     EditText nknm;
     EditText start;
@@ -190,6 +189,10 @@ public class MainActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putString("rooms", rcvData.optString("rooms"));
             intent.putExtras(bundle);
+
+            UserInfo userInfo = UserInfo.getInstance();
+            userInfo.nknm = nknm.getText().toString();
+
             startActivity(intent);
         }
     };
