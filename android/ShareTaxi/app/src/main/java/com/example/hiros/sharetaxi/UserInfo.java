@@ -8,6 +8,7 @@ public class UserInfo {
 
     private volatile static UserInfo instance;
 
+    public int score;
     public double y;
     public double x;
     public String nknm;
@@ -24,6 +25,7 @@ public class UserInfo {
     }
 
     private UserInfo() {
+        score = 0;
         y = 0;
         x = 0;
         nknm = "TEMPUSER";
