@@ -61,7 +61,10 @@
 
       var leaveRoom = document.querySelector('#leaveRoom');
       leaveRoom.addEventListener("click", (event) => {
-        socket.emit('leave room');
+        socket.emit('leave room', {
+          nknm: $('#nknm').val(),
+          rid: $('#roomid').val()
+        });
         rid = "ALL";
       });
 

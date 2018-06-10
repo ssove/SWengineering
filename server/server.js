@@ -44,14 +44,14 @@ function makeRoom (id, msg) {
 function getRooms () {
   var ret = [];
 
-  for(var i = 0; i < Rooms.length; i++) {
-    ret.push(Rooms[i]);
+  for(var value of Rooms.values()) {
+    ret.push(value);
   }
 
   return ret;
 }
 
-var Rooms = [];
+var Rooms = new Map();
 var roomID = 0;
 
 io.on('connection', (socket) => { //연결
@@ -85,8 +85,8 @@ io.on('connection', (socket) => { //연결
     // let rooms = Object.keys(socket.rooms);
     // console.log(io.sockets.adapter.rooms);//방 목록
     // rooms.shift();
-    console.log(Rooms.length);
-    if(Rooms.length == 0) {
+    console.log(Rooms.size);
+    if(Rooms.size == 0) {
       socket.emit('show rooms', {
         nknm: "system",
         message: "생성된 방이 없습니다."
@@ -111,7 +111,7 @@ io.on('connection', (socket) => { //연결
       console.log("ADDED");
     } else {
       let id = ++roomID;
-      Rooms.push(makeRoom(id, msg));
+      Rooms.set(id, makeRoom(id, msg));
 
       socket.join(id, () => {
         addedUser = true;
@@ -136,9 +136,10 @@ io.on('connection', (socket) => { //연결
       socket.join(msg.rid, () => {
         addedUser = true;
         let idx = msg.rid * 1;
-        Rooms[idx - 1].numUsers++;
+        console.log("IDX:", idx);
+        Rooms.get(idx).numUsers++;
         io.to(msg.rid).emit('new message', {
-          nknm: "system",
+          nknm: msg.nknm,
           action: "entered"
         });
       });
@@ -146,15 +147,22 @@ io.on('connection', (socket) => { //연결
   });
 
   socket.on('leave room', (msg) => {
+    console.log(msg);
     if(addedUser) {
       socket.leave(msg.rid);
       addedUser = false;
       let idx = msg.rid * 1;
-      Rooms[idx - 1].numUsers--;
+      Rooms.get(idx).numUsers--;
       io.to(msg.rid).emit('new message', {
-        nknm: "system",
+        nknm: msg.nknm,
         action: "leaved"
       });
+      if(Rooms.get(idx).numUsers == 0) {
+        console.log("DEL");
+        Rooms.delete(idx);
+        console.log(Rooms);
+      }
+
     }
   });
 
