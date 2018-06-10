@@ -11,6 +11,8 @@ public class Constants {
     public static final String NEW_MESSAGE = "new message";
     public static final String MAKE_ROOM = "make room";
     public static final String JOIN_ROOM = "join room";
+    public static final String LEAVE_ROOM = "leave room";
+    public static final String GET_ROOMID = "room id";
 
     public static final String MESSAGE_TYPE_SYSTEM = "system";
     public static final String MESSAGE_TYPE_SELF = "self";

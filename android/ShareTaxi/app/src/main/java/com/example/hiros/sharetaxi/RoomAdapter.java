@@ -64,6 +64,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewHolder> implements
         intent.putExtras(bundle);
         mContext.startActivity(intent);
 
-        Toast.makeText(mContext, items.get(position).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, items.get(position).toString(), Toast.LENGTH_SHORT).show();
     }
 }

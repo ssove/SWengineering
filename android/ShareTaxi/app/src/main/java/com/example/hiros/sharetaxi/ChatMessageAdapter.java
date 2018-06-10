@@ -116,7 +116,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         if(viewType == SYSTEM_VIEW) {
             SystemHolder systemHolder = (SystemHolder)holder;
 
-            String messageSuffix = item.getUserAction().equals("entered") ? "님이 채팅방에 들어왔습니다." : "님이 채팅방을 나갔습니다.";
+            String messageSuffix = "";
+
+            if(item.getUserAction().equals("entered"))
+                messageSuffix = "님이 채팅방에 들어왔습니다.";
+            else if(item.getUserAction().equals("leaved"))
+                messageSuffix =  "님이 채팅방을 나갔습니다.";
+
             systemHolder.messageTextView.setText(item.getMessageOwner() + messageSuffix);
         } else if(viewType == SELF_VIEW) {
             SelfHolder selfHolder = (SelfHolder)holder;

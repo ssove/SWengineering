@@ -10,6 +10,8 @@ public class UserInfo {
 
     public double y;
     public double x;
+    public String start;
+    public String finish;
     public String nknm;
 
     public static UserInfo getInstance() {
@@ -24,8 +26,10 @@ public class UserInfo {
     }
 
     private UserInfo() {
+        nknm = "TEMPUSER";
         y = 0;
         x = 0;
-        nknm = "TEMPUSER";
+        start = "출발지";
+        finish = "도착지";
     }
 }

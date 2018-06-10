@@ -6,13 +6,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +43,10 @@ public class ChatMessageActivity extends AppCompatActivity{
 
     private String rid;
 
+    Toolbar mToolbar;
+
     public void onCreate(Bundle savedInstanceState) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
@@ -46,6 +54,11 @@ public class ChatMessageActivity extends AppCompatActivity{
         messageEditText = (EditText)findViewById(R.id.messageEditText);
         sendButton = (Button)findViewById(R.id.sendButton);
         sendButton.setOnClickListener(sendButtonTouchUp);
+
+        mToolbar = (Toolbar)findViewById(R.id.toolbar_chat);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         Intent intent = new Intent(this.getIntent());
         Bundle bundle = intent.getExtras();
@@ -119,7 +132,7 @@ public class ChatMessageActivity extends AppCompatActivity{
             String messageOwner = rcvData.optString("nknm");
             String messageContent = rcvData.optString("message");
             String messageType = Constants.MESSAGE_TYPE_RECEIVE;
-            if(userAction.equals("entered")) {
+            if(userAction.equals("entered") || userAction.equals("leaved")) {
                 messageType = Constants.MESSAGE_TYPE_SYSTEM;
             } else if(messageOwner.equals(userInfo.nknm)) {
                 messageType = Constants.MESSAGE_TYPE_SELF;
@@ -140,16 +153,6 @@ public class ChatMessageActivity extends AppCompatActivity{
             });
         }
     };
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     View.OnClickListener sendButtonTouchUp = new View.OnClickListener() {
         @Override
@@ -179,6 +182,42 @@ public class ChatMessageActivity extends AppCompatActivity{
             sendData.put("nknm", userInfo.nknm);
             sendData.put("rid", rid);
             mSocket.emit(Constants.JOIN_ROOM, sendData);
+
+            messageEditText.setText(null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_chat, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch(item.getItemId()) {
+            case R.id.gogogo:
+                Toast.makeText(getApplicationContext(), "출발하기", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        JSONObject sendData = new JSONObject();
+
+        try {
+            sendData.put("nknm", userInfo.nknm);
+            sendData.put("rid", rid);
+            mSocket.emit(Constants.LEAVE_ROOM, sendData);
 
             messageEditText.setText(null);
         } catch (JSONException e) {

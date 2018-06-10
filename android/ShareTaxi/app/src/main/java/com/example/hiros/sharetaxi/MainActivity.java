@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements OnTimePickerSetLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSocket.bindListener(Constants.SHOW_ROOM, showRoom);
-
         nknm = (EditText)findViewById(R.id.edit_nknm);
 
         start = (EditText)findViewById(R.id.edit_start);
@@ -121,20 +119,12 @@ public class MainActivity extends AppCompatActivity implements OnTimePickerSetLi
                 int id = v.getId();
                 switch(id) {
                     case R.id.btn_search:
-                        JSONObject sendData = new JSONObject();
-                        try {
-                            sendData.put("nknm", "USERNAME");
-                            sendData.put("start", "START");
-                            sendData.put("finish", "FINISH");
-                            sendData.put("time", "TIME");
-//                            sendData.put("y", Double.valueOf(y.getText().toString()));
-//                            sendData.put("x", Double.valueOf(x.getText().toString()));
-                            sendData.put("y", 0);
-                            sendData.put("x", 0);
-                            mSocket.emit("show rooms", sendData);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+                        UserInfo userInfo = UserInfo.getInstance();
+                        userInfo.nknm = nknm.getText().toString();
+
+                        Intent intent = new Intent(MainActivity.this, RoomListActivity.class);
+                        startActivity(intent);
 
                         break;
 
@@ -174,26 +164,4 @@ public class MainActivity extends AppCompatActivity implements OnTimePickerSetLi
         else
             time.setText(hour-12 + "시 " + min + "분 PM");
     }
-
-    /**
-     * show rooms Listener
-     */
-    private Emitter.Listener showRoom = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            // 서버로 전송할 데이터 생성 및 채널 입장 이벤트 보냄.
-
-            final JSONObject rcvData = (JSONObject) args[0];
-
-            Intent intent = new Intent(MainActivity.this, RoomListActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("rooms", rcvData.optString("rooms"));
-            intent.putExtras(bundle);
-
-            UserInfo userInfo = UserInfo.getInstance();
-            userInfo.nknm = nknm.getText().toString();
-
-            startActivity(intent);
-        }
-    };
 }
