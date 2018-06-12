@@ -1,5 +1,6 @@
 package com.example.hiros.sharetaxi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,8 +49,17 @@ public class RateActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    Intent intent = new Intent(RateActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
     }
+
+    /*private Emitter.Listener rateUser = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject recvData
+        }
+    }*/
 }

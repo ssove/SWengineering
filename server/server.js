@@ -104,6 +104,7 @@ io.on('connection', (socket) => { //연결
   //   console.log(rooms); // [ <socket.id>, 'room 237' ]
   // });
 
+
   socket.on('make room', (msg) => {
     console.log(msg);
 
