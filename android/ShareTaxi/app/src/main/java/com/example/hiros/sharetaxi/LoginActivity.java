@@ -13,18 +13,27 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-//    EditText idInput, passwordInput;
-//    CheckBox autoLogin;
-//    Boolean loginChecked;
-//    SharedPreferences pref;
-//    SharedPreferences.Editor editor;
+    EditText idInput, passwordInput;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     Button login;
+    Button signup;
+
+    static final int ID_MIN_LENGTH = 8;
+    static final int ID_MAX_LENGTH = 16;
+    static final int PW_MIN_LENGTH = 8;
+    static final int PW_MAX_LENGTH = 16;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        pref = getSharedPreferences("myFile", this.MODE_PRIVATE);
+
+        idInput = (EditText) findViewById(R.id.emailInput);
+        passwordInput = (EditText) findViewById(R.id.passwordInput);
 
         login = (Button)findViewById(R.id.loginButton);
         login.setOnClickListener(new View.OnClickListener() {
@@ -32,75 +41,115 @@ public class LoginActivity extends AppCompatActivity {
                 int id = v.getId();
                 switch(id) {
                     case R.id.loginButton:
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        String userId = idInput.getText().toString();
+                        String password = passwordInput.getText().toString();
+                        Boolean validation = loginValidation(userId, password);
+
+                        if(validation) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                 }
             }
         });
 
-//        idInput = (EditText) findViewById(R.id.emailInput);
-//        passwordInput = (EditText) findViewById(R.id.passwordInput);
-//        autoLogin = (CheckBox) findViewById(R.id.checkBox);
-//
-//        // if autoLogin checked, get input
-//        if (pref.getBoolean("autoLogin", false)) {
-//            idInput.setText(pref.getString("id", ""));
-//            passwordInput.setText(pref.getString("pw", ""));
-//            autoLogin.setChecked(true);
-//            // goto mainActivity
-//
-//        } else {
-//            // if autoLogin unChecked
-//            String id = idInput.getText().toString();
-//            String password = passwordInput.getText().toString();
-//            Boolean validation = loginValidation(id, password);
-//
-//            if(validation) {
-//                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-//                // save id, password to Database
-//
-//                if(loginChecked) {
-//                    // if autoLogin Checked, save values
-//                    editor.putString("id", id);
-//                    editor.putString("pw", password);
-//                    editor.putBoolean("autoLogin", true);
-//                    editor.commit();
-//                }
-//                // goto mainActivity
-//
-//            } else {
-//                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
-//                // goto LoginActivity
-//            }
-      }
-//        // set checkBoxListener
-//        autoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked) {
-//                   loginChecked = true;
-//                } else {
-//                    // if unChecked, removeAll
-//                    loginChecked = false;
-//                    editor.clear();
-//                    editor.commit();
-//                }
-//            }
-//        });
-//    }
-//
-//    private boolean loginValidation(String id, String password) {
-//        if(pref.getString("id","").equals(id) && pref.getString("pw","").equals(password)) {
-//            // login success
-//            return true;
-//        } else if (pref.getString("id","").equals(null)){
-//            // sign in first
-//            Toast.makeText(LoginActivity.this, "Please Sign in first", Toast.LENGTH_LONG).show();
-//            return false;
-//        } else {
-//            // login failed
-//            return false;
-//        }
-//    }
+        signup = (Button)findViewById(R.id.signupButton);
+        signup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int id = v.getId();
+                switch (id) {
+                    case R.id.signupButton:
+                        String userId = idInput.getText().toString();
+                        String password = passwordInput.getText().toString();
+                        Boolean isSignupValidation = signupValidation(userId, password);
+
+                        if(isSignupValidation == true) {
+                            editor = pref.edit();
+                            editor.putString("id", userId);
+                            editor.putString("pw", password);
+                            editor.commit();
+                            Toast.makeText(LoginActivity.this, "Success Sign Up", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
+    private boolean loginValidation(String id, String password) {
+        if (pref.getString("id","").equals(null)) {
+            Toast.makeText(LoginActivity.this, "Please Sign Up first", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if(pref.getString("id","").equals(id) == false || pref.getString("pw","").equals(password) == false) {
+            Toast.makeText(LoginActivity.this, "Please check your ID/Password", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if(pref.getString("id","").equals(id) && pref.getString("pw","").equals(password)) {
+            return true;
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "Unknown Login State", Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    private boolean signupValidation(String id, String password) {
+
+        if (pref.getString("id", "").equals(id)) {
+            Toast.makeText(LoginActivity.this, "Already registered ID", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (checkInputOnlyNumberAndAlphabet(id) == false) {
+            Toast.makeText(LoginActivity.this, "Please only number and alphabet ID", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (checkInputOnlyNumberAndAlphabet(password) == false) {
+            Toast.makeText(LoginActivity.this, "Please only number and alphabet Password ", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (id.length() < ID_MIN_LENGTH || id.length() > ID_MAX_LENGTH) {
+            if (password.length() < PW_MIN_LENGTH || password.length() > PW_MAX_LENGTH) {
+                Toast.makeText(LoginActivity.this, "Please ID & Password length 8~16, ", Toast.LENGTH_LONG).show();
+                return false;
+            } else {
+                Toast.makeText(LoginActivity.this, "Please ID length 8~16, ", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } else {
+            if (password.length() < PW_MIN_LENGTH || password.length() > PW_MAX_LENGTH) {
+                Toast.makeText(LoginActivity.this, "Please Password length 8~16, ", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkInputOnlyNumberAndAlphabet(String textInput) {
+        char chrInput;
+
+        for (int i = 0; i < textInput.length(); i++) {
+            chrInput = textInput.charAt(i); // 입력받은 텍스트에서 문자 하나하나 가져와서 체크
+
+            if (chrInput >= 0x61 && chrInput <= 0x7A) {
+                // 영문(소문자) OK!
+            }
+            else if (chrInput >=0x41 && chrInput <= 0x5A) {
+                // 영문(대문자) OK!
+            }
+            else if (chrInput >= 0x30 && chrInput <= 0x39) {
+                // 숫자 OK!
+            }
+            else {
+                return false;   // 영문자도 아니고 숫자도 아님!
+            }
+        }
+
+        return true;
+    }
+
+
 }
