@@ -1,13 +1,12 @@
 package com.example.hiros.sharetaxi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,17 +19,14 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     Button signup;
 
-    static final int ID_MIN_LENGTH = 8;
-    static final int ID_MAX_LENGTH = 16;
-    static final int PW_MIN_LENGTH = 8;
-    static final int PW_MAX_LENGTH = 16;
+    static final int SIGNUP_REQUEST = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        pref = getSharedPreferences("myFile", this.MODE_PRIVATE);
+        pref = getSharedPreferences("myFile", Activity.MODE_PRIVATE);
 
         idInput = (EditText) findViewById(R.id.emailInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
@@ -60,17 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                 int id = v.getId();
                 switch (id) {
                     case R.id.signupButton:
-                        String userId = idInput.getText().toString();
-                        String password = passwordInput.getText().toString();
-                        Boolean isSignupValidation = signupValidation(userId, password);
-
-                        if(isSignupValidation == true) {
-                            editor = pref.edit();
-                            editor.putString("id", userId);
-                            editor.putString("pw", password);
-                            editor.commit();
-                            Toast.makeText(LoginActivity.this, "Success Sign Up", Toast.LENGTH_LONG).show();
-                        }
+                        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                        startActivityForResult(intent, SIGNUP_REQUEST);
                         break;
                 }
             }
@@ -94,62 +81,5 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
-
-    private boolean signupValidation(String id, String password) {
-
-        if (pref.getString("id", "").equals(id)) {
-            Toast.makeText(LoginActivity.this, "Already registered ID", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (checkInputOnlyNumberAndAlphabet(id) == false) {
-            Toast.makeText(LoginActivity.this, "Please only number and alphabet ID", Toast.LENGTH_LONG).show();
-            return false;
-        } else if (checkInputOnlyNumberAndAlphabet(password) == false) {
-            Toast.makeText(LoginActivity.this, "Please only number and alphabet Password ", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (id.length() < ID_MIN_LENGTH || id.length() > ID_MAX_LENGTH) {
-            if (password.length() < PW_MIN_LENGTH || password.length() > PW_MAX_LENGTH) {
-                Toast.makeText(LoginActivity.this, "Please ID & Password length 8~16, ", Toast.LENGTH_LONG).show();
-                return false;
-            } else {
-                Toast.makeText(LoginActivity.this, "Please ID length 8~16, ", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        } else {
-            if (password.length() < PW_MIN_LENGTH || password.length() > PW_MAX_LENGTH) {
-                Toast.makeText(LoginActivity.this, "Please Password length 8~16, ", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private boolean checkInputOnlyNumberAndAlphabet(String textInput) {
-        char chrInput;
-
-        for (int i = 0; i < textInput.length(); i++) {
-            chrInput = textInput.charAt(i); // 입력받은 텍스트에서 문자 하나하나 가져와서 체크
-
-            if (chrInput >= 0x61 && chrInput <= 0x7A) {
-                // 영문(소문자) OK!
-            }
-            else if (chrInput >=0x41 && chrInput <= 0x5A) {
-                // 영문(대문자) OK!
-            }
-            else if (chrInput >= 0x30 && chrInput <= 0x39) {
-                // 숫자 OK!
-            }
-            else {
-                return false;   // 영문자도 아니고 숫자도 아님!
-            }
-        }
-
-        return true;
-    }
-
 
 }

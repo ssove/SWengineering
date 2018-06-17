@@ -1,6 +1,8 @@
 package com.example.hiros.sharetaxi;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements OnTimePickerSetLi
     static final int START_REQUEST = 1;
     static final int FINISH_REQUEST = 2;
 
+    SharedPreferences pref;
+
     sgtSocket mSocket = sgtSocket.getInstance();
 
     @Override
@@ -39,7 +43,12 @@ public class MainActivity extends AppCompatActivity implements OnTimePickerSetLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pref = getSharedPreferences("myFile", Activity.MODE_PRIVATE);
+
         nknm = (EditText)findViewById(R.id.edit_nknm);
+        nknm.setText(pref.getString("nickname",""));
+        nknm.setFocusable(false);
+        nknm.setClickable(false);
 
         start = (EditText)findViewById(R.id.edit_start);
         start.setOnClickListener(new View.OnClickListener() {

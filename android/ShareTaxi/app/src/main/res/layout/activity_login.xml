@@ -22,7 +22,7 @@
         android:id="@+id/passwordInput"
         android:layout_centerHorizontal="true"
         android:hint="Password"
-        android:password="true"
+        android:inputType="textPassword"
         android:layout_below="@+id/emailInput" />
 
     <Button

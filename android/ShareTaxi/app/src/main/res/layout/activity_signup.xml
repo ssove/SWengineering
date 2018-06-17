@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFF3"
+    android:orientation="vertical">
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/signup_emailInput"
+        android:layout_centerHorizontal="true"
+        android:hint="ID ([Alphabet + Number] Length 8~16)"
+        android:layout_marginTop="130dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/signup_passwordInput"
+        android:layout_centerHorizontal="true"
+        android:hint="Password (Length 8~16)"
+        android:inputType="textPassword"
+        android:layout_below="@+id/signup_emailInput" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/signup_confirmPasswordInput"
+        android:layout_centerHorizontal="true"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/signup_passwordInput" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/signup_nickNameInput"
+        android:layout_centerHorizontal="true"
+        android:hint="Nickname (byte 4~16)"
+        android:layout_below="@+id/signup_confirmPasswordInput" />
+
+    <Button
+        android:id="@+id/btn_completeSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button1"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="완료"
+        android:textSize="12pt"/>
+
+</RelativeLayout>
