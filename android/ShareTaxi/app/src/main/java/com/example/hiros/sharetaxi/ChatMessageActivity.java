@@ -202,7 +202,9 @@ public class ChatMessageActivity extends AppCompatActivity{
         //return super.onOptionsItemSelected(item);
         switch(item.getItemId()) {
             case R.id.gogogo:
-                Toast.makeText(getApplicationContext(), "출발하기", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChatMessageActivity.this, RateActivity.class);
+                startActivity(intent);
+//                Toast.makeText(getApplicationContext(), "출발하기", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
